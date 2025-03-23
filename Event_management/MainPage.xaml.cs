@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Event_management.Core.Contracts;
+using Event_management.Core.Services;
+using Event_management.Modules.Authentication.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +25,24 @@ namespace Event_management
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private IAuthService _authService;
+
         public MainPage()
         {
             this.InitializeComponent();
+            _authService = new MockAuthService();
+
+        }
+
+
+
+
+        private async void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            await _authService.LogoutAsync();
+
+            // Kijelentkezés után vissza a bejelentkezési oldalra
+            Frame.Navigate(typeof(LoginView));
         }
     }
 }
