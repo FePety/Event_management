@@ -1,6 +1,5 @@
 ﻿using Event_management.Core.Contracts;
 using Event_management.Core.Models;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Security.Credentials;
@@ -26,7 +25,6 @@ namespace Event_management.Core.Services
         public async Task<BaseResponse> LoginAsync(string username, string password)
         {
             await Task.Delay(500);
-            Trace.WriteLine("LoginAsync");
 
             var response = new BaseResponse();
 

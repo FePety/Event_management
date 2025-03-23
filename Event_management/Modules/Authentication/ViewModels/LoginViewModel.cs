@@ -2,13 +2,8 @@
 using Event_management.Core.Models;
 using GalaSoft.MvvmLight.Command;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
 namespace Event_management.Modules.Authentication.ViewModels
@@ -110,7 +105,6 @@ namespace Event_management.Modules.Authentication.ViewModels
             if (!_validator.ValidateEmail(Email) || !_validator.ValidatePassword(Password))
                 return;
 
-            Trace.WriteLine("SignInAsync");
             App.GlobalLoader.SetTimer(3000);
             BaseResponse response = await _authService.LoginAsync(Email, Password);
 
