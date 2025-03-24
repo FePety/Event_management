@@ -120,17 +120,27 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Core\Contracts\IAuthService.cs" />
+    <Compile Include="Core\Contracts\IEventService.cs" />
+    <Compile Include="Core\Models\ApiResponse.cs" />
     <Compile Include="Core\Models\BaseMessage.cs" />
     <Compile Include="Core\Models\BaseResponse.cs" />
+    <Compile Include="Core\Models\Event.cs" />
     <Compile Include="Core\Models\LoginValidator.cs" />
     <Compile Include="Core\Services\AuthService.cs" />
+    <Compile Include="Core\Services\EventService.cs" />
     <Compile Include="Core\Services\MockAuthService.cs" />
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Core\Services\MockEventService.cs" />
     <Compile Include="Modules\Authentication\ViewModels\LoginViewModel.cs" />
     <Compile Include="Modules\Authentication\Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Event\ViewModels\EventPanelViewModel.cs" />
+    <Compile Include="Modules\Event\ViewModels\EventViewModel.cs" />
+    <Compile Include="Modules\Event\Views\EventPanel.xaml.cs">
+      <DependentUpon>EventPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Event\Views\EventView.xaml.cs">
+      <DependentUpon>EventView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Shared\LoadingOverlay.xaml.cs">
       <DependentUpon>LoadingOverlay.xaml</DependentUpon>
@@ -208,11 +218,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Modules\Authentication\Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Event\Views\EventPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\Event\Views\EventView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

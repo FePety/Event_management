@@ -30,7 +30,7 @@ namespace Event_management.Core.Services
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                AddError(response, "EMPTY_FIELDS",
+                response.AddError("EMPTY_FIELDS",
                     "Username and password cannot be empty.",
                     "Please enter your username and password and try again.");
                 return response;
@@ -41,13 +41,13 @@ namespace Event_management.Core.Services
             if (isValid)
             {
                 StoreCredentials(username, password);
-                AddInfo(response, "LOGIN_SUCCESS",
+                response.AddInfo("LOGIN_SUCCESS",
                     "Login Successful!",
                     "The user has successfully logged in.");
             }
             else
             {
-                AddError(response, "INVALID_CREDENTIALS",
+                response.AddError("INVALID_CREDENTIALS",
                     "Incorrect username or password!",
                     "Please check the information you entered.");
             }
@@ -61,7 +61,7 @@ namespace Event_management.Core.Services
             ClearCredentials();
 
             var response = new BaseResponse();
-            AddInfo(response, "LOGOUT_SUCCESS",
+            response.AddInfo("LOGOUT_SUCCESS",
                 "Logout successful!",
                 "The user has logged out of the application.");
 
@@ -98,16 +98,6 @@ namespace Event_management.Core.Services
             {
                 _vault.Remove(creds);
             }
-        }
-
-        private void AddError(BaseResponse response, string key, string msg, string desc)
-        {
-            response.Error.Add(new BaseMessage(key, msg, desc));
-        }
-
-        private void AddInfo(BaseResponse response, string key, string msg, string desc)
-        {
-            response.Info.Add(new BaseMessage(key, msg, desc));
         }
     }
 }
