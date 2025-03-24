@@ -1,5 +1,6 @@
 ﻿using Event_management.Core.Services;
 using System;
+using Event_management.Modules.Event.Views;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -42,7 +43,7 @@ namespace Event_management.Modules.Authentication.ViewModels
 
         private void ViewModel_LoginSuccessful(object sender, EventArgs e)
         {
-            Frame.Navigate(typeof(MainPage));
+            Frame.Navigate(typeof(EventView));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Event_management.Core.Contracts;
 using Event_management.Core.Services;
 using Event_management.Modules.Authentication.ViewModels;
+using Event_management.Modules.Event.Views;
 using Event_management.Modules.Shared;
 using System;
 using System.Diagnostics;
@@ -65,7 +66,7 @@ namespace Event_management
             {
                 if (rootFrame.Content == null)
                 {
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(EventView), e.Arguments);
                 }
                 Window.Current.Activate();
             }
@@ -79,7 +80,7 @@ namespace Event_management
             // Ha be van jelentkezve, irányítsuk a főoldalra, egyébként pedig a bejelentkezési oldalra
             if (isLoggedIn)
             {
-                rootFrame.Navigate(typeof(MainPage)); // Bejelentkezett felhasználó, tehát a főoldalra navigálunk
+                rootFrame.Navigate(typeof(EventView)); // Bejelentkezett felhasználó, tehát a főoldalra navigálunk
             }
             else
             {
