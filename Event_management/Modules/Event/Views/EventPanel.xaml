@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    DataContextChanged="UserControl_DataContextChanged"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style x:Key="TextBoxStyle" TargetType="TextBox">
@@ -746,18 +747,17 @@
             Shadow="{StaticResource SharedShadow}">
             <ScrollViewer Background="#c7c7c7" Padding="10">
                 <StackPanel x:Name="EventDataPanel">
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{x:Bind Event.Name, Mode=OneWay}" FontSize="15" TextWrapping="Wrap"
-                             Header="Esemény neve" Foreground="#3d3d3d" CornerRadius="5" IsEnabled="False"/>
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{x:Bind Event.Location, Mode=OneWay}" FontSize="15" TextWrapping="Wrap"
-                             Header="Helyszín" Foreground="#3d3d3d" CornerRadius="5" IsEnabled="False"/>
-                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{x:Bind Event.Country, Mode=OneWay}" FontSize="15" TextWrapping="Wrap"
-                             Header="Ország" Foreground="#3d3d3d" CornerRadius="5" IsEnabled="False"/>
-                    <muxc:NumberBox Style="{StaticResource NumberBoxStyle}" Header="Kapacitás" Value="{x:Bind Event.Capacity.Value, Mode=OneWay}" 
-                                    Minimum="1" Foreground="#3d3d3d" IsEnabled="False" FontSize="15"/>
+                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{x:Bind ViewModel.Name, Mode=TwoWay}" FontSize="15" TextWrapping="Wrap"
+                             Header="Esemény neve" Foreground="#3d3d3d" CornerRadius="5" IsEnabled="{x:Bind ViewModel.IsTextBoxEnabled, Mode=OneWay}"/>
+                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{x:Bind ViewModel.Location, Mode=TwoWay}" FontSize="15" TextWrapping="Wrap"
+                             Header="Helyszín" Foreground="#3d3d3d" CornerRadius="5" IsEnabled="{x:Bind ViewModel.IsTextBoxEnabled, Mode=OneWay}"/>
+                    <TextBox Style="{StaticResource TextBoxStyle}" Text="{x:Bind ViewModel.Country, Mode=TwoWay}" FontSize="15" TextWrapping="Wrap"
+                             Header="Ország" Foreground="#3d3d3d" CornerRadius="5" IsEnabled="{x:Bind ViewModel.IsTextBoxEnabled, Mode=OneWay}"/>
+                    <muxc:NumberBox Style="{StaticResource NumberBoxStyle}" Header="Kapacitás" Value="{x:Bind ViewModel.Capacity, Mode=TwoWay}"
+                                    Minimum="1" Foreground="#3d3d3d" FontSize="15" IsEnabled="{x:Bind ViewModel.IsTextBoxEnabled, Mode=OneWay}"/>
 
-                    <Button Background="Green" Margin="10"
-                        VerticalAlignment="Center" HorizontalAlignment="Center"
-                        Click="SaveButton_Click">
+                    <Button Background="Green" Margin="10" Visibility="{x:Bind ViewModel.SavedButtonVisible, Mode=OneWay}"
+                        VerticalAlignment="Center" HorizontalAlignment="Center" Command="{x:Bind ViewModel.SaveCommand}">
                         <Viewbox MaxHeight="40" MaxWidth="40">
                             <SymbolIcon Symbol="Save" Foreground="White"/>
                         </Viewbox>

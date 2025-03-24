@@ -23,12 +23,13 @@
                     RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
         </RelativePanel>
 
-        <panel:EventPanel x:Name="EventPanel" Grid.Row="1" Event="{x:Bind ViewModel.SelectedEvent, Mode=OneWay}"/>
+        <panel:EventPanel x:Name="EventPanel" Grid.Row="1" />
 
         <Grid Grid.Row="2">
             <GridView x:Name="EventGridView"
                   ItemsSource="{x:Bind ViewModel.Events}"
                   SelectedItem="{Binding SelectedEvent, Mode=TwoWay}"
+                  SelectionChanged="EventGridView_SelectionChanged"
                   ScrollViewer.VerticalScrollMode="Auto"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.HorizontalScrollMode="Disabled"
@@ -52,7 +53,7 @@
                                 </Border.BorderBrush>
                                 <RelativePanel>
                                     <Button x:Name="EditingEvent" Width="40" Height="40" Background="Blue" Margin="0,5,3,0" Opacity="0"
-                                            RelativePanel.AlignTopWithPanel="True" RelativePanel.LeftOf="RemoveEvent">
+                                            RelativePanel.AlignTopWithPanel="True" RelativePanel.LeftOf="RemoveEvent" Click="EditingEvent_Click">
                                         <Viewbox MaxHeight="40" MaxWidth="40">
                                             <SymbolIcon Symbol="Edit" Foreground="White"/>
                                         </Viewbox>

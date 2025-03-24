@@ -1,4 +1,5 @@
-﻿using Event_management.Core.Models;
+﻿using Event_management.Core.Contracts;
+using Event_management.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Event_management.Core.Services
 {
-    public class MockEventService
+    public class MockEventService : IEventService
     {
         private List<Event> _events = new List<Event>
         {
@@ -55,12 +56,13 @@ namespace Event_management.Core.Services
             return response;
         }
 
-        public async Task<BaseResponse> UpdateEventAsync(string eventName, Event updatedEvent)
+        public async Task<BaseResponse> UpdateEventAsync(Event updatedEvent)
         {
             await Task.Delay(300);
-            var response = new BaseResponse();
 
-            var existingEvent = _events.FirstOrDefault(e => e.Name == eventName);
+            var response = new ApiResponse<Event>(null);
+
+            var existingEvent = _events.FirstOrDefault(e => e.Name == updatedEvent.Name);
             if (existingEvent == null)
             {
                 response.AddError("EVENT_NOT_FOUND", "Event not found!", "Check the event name.");
@@ -72,9 +74,12 @@ namespace Event_management.Core.Services
             existingEvent.Country = updatedEvent.Country;
             existingEvent.Capacity = updatedEvent.Capacity;
 
-            response.AddInfo("EVENT_UPDATED", "Event successfully updated!", $"Event: { updatedEvent.Name}");
+            response.Data = existingEvent;
+            response.AddInfo("EVENT_UPDATED", "Event successfully updated!", $"Event: {updatedEvent.Name}");
+
             return response;
         }
+
 
         public async Task<BaseResponse> DeleteEventAsync(string eventName)
         {

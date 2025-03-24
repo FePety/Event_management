@@ -125,6 +125,7 @@
     <Compile Include="Core\Models\BaseMessage.cs" />
     <Compile Include="Core\Models\BaseResponse.cs" />
     <Compile Include="Core\Models\Event.cs" />
+    <Compile Include="Core\Models\EventValidator.cs" />
     <Compile Include="Core\Models\LoginValidator.cs" />
     <Compile Include="Core\Services\AuthService.cs" />
     <Compile Include="Core\Services\EventService.cs" />

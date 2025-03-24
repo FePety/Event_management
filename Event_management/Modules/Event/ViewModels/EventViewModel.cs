@@ -18,15 +18,15 @@ namespace Event_management.Modules.Event.ViewModels
         private string _name;
         private string _location;
         private string _country;
-        private int? _capacity;
-        private Core.Models.Event _selectedEvent;
+        private int _capacity;
+        //private Core.Models.Event _selectedEvent;
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public Core.Models.Event SelectedEvent
+       /* public Core.Models.Event SelectedEvent
         {
             get => _selectedEvent;
             set { _selectedEvent = value; OnPropertyChanged(); }
-        }
+        }*/
 
         public string Name
         {
@@ -46,7 +46,7 @@ namespace Event_management.Modules.Event.ViewModels
             set { _country = value; OnPropertyChanged(); }
         }
 
-        public int? Capacity
+        public int Capacity
         {
             get => _capacity;
             set
@@ -56,7 +56,7 @@ namespace Event_management.Modules.Event.ViewModels
                 OnPropertyChanged();
             }
         }
-
+        /*
         private bool _isTextBoxEnabled;
         public bool IsTextBoxEnabled
         {
@@ -69,7 +69,7 @@ namespace Event_management.Modules.Event.ViewModels
                     OnPropertyChanged(nameof(IsTextBoxEnabled));
                 }
             }
-        }
+        }*/
 
         public ICommand SaveCommand { get; }
 
@@ -99,13 +99,12 @@ namespace Event_management.Modules.Event.ViewModels
                 return;
             }
 
-            var newEvent = new Core.Models.Event
-            {
-                Name = Name,
-                Location = Location,
-                Country = Country,
-                Capacity = Capacity
-            };
+            var newEvent = new Core.Models.Event(
+                name : Name,
+                location: Location,
+                country: Country,
+                capacity: Capacity
+                );
 
             await _eventService.AddEventAsync(newEvent);
             Events.Add(newEvent);
