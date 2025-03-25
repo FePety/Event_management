@@ -306,7 +306,7 @@ namespace Event_management.Modules.Event.ViewModels
             }
             else
             {
-                await UpdateEventAsync();
+                 await UpdateEventAsync();
             }
         }
         

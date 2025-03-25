@@ -1,6 +1,7 @@
-﻿using Event_management.Core.Services;
-using Event_management.Modules.Event.ViewModels;
+﻿using Event_management.Modules.Event.ViewModels;
+using Event_management.Modules.Shared;
 using System;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -81,6 +82,44 @@ namespace Event_management.Modules.Event.Views
         private void NewEventButton_Click(object sender, RoutedEventArgs e)
         {
             EventPanel.ViewModel.ResetEventForm();
+        }
+
+        private async void RemoveEvent_Click(object sender, RoutedEventArgs e)
+        {
+            EventPanel.ViewModel.IsTextBoxEnabled = false;
+            EventPanel.ViewModel.IsNewEvent = false;
+
+            if (sender is Button button && button.DataContext is Core.Models.Event deleteEvent)
+            {
+                var eventToRemove = ViewModel.Events?
+                    .FirstOrDefault(ev =>
+                        ev.Name == deleteEvent.Name &&
+                        ev.Location == deleteEvent.Location &&
+                        ev.Country == deleteEvent.Country &&
+                        ev.Capacity == deleteEvent.Capacity);
+
+                string editEvent = "Delete event";
+                var dialog = new MessageDialog(editEvent);
+
+                var result = await dialog.ShowAsync();
+                if (result == ContentDialogResult.Primary)
+                {
+                    if (eventToRemove != null)
+                    {
+                        App.GlobalLoader.SetTimer(2000);
+                        ViewModel.Events.Remove(eventToRemove);
+                    }
+                }
+            }
+        }
+
+        private async void SignOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            EventPanel.ViewModel.IsTextBoxEnabled = false;
+            EventPanel.ViewModel.IsNewEvent = false;
+            string isSignOut = "Sign Out";
+            MessageDialog messageDialog = new MessageDialog(isSignOut);
+            await messageDialog.ShowAsync();
         }
     }
 }
