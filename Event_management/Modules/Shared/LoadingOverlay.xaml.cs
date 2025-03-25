@@ -17,22 +17,26 @@ namespace Event_management.Modules.Shared
             this.InitializeComponent();
         }
 
+        // Sets the timer and displays the loading overlay for the specified time (in milliseconds)
         public void SetTimer(int time)
         {
-            this.Visibility = Visibility.Visible;
+            this.Visibility = Visibility.Visible; // Show the loading overlay
 
-            aTimer = new Timer(time);
-            aTimer.Elapsed += OnTimedEvent;
-            aTimer.AutoReset = false;
-            aTimer.Enabled = true;
+            aTimer = new Timer(time); // Initialize the timer with the specified time
+            aTimer.Elapsed += OnTimedEvent; // Register the event handler for when the timer elapses
+            aTimer.AutoReset = false; // Ensure the timer only runs once
+            aTimer.Enabled = true; // Start the timer
         }
 
+        // Event handler that is triggered when the timer elapses
         private async void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
         {
-            aTimer.Stop();
+            aTimer.Stop(); // Stop the timer once it elapses
+
+            // Use the dispatcher to update the UI on the main thread
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                this.Visibility = Visibility.Collapsed;
+                this.Visibility = Visibility.Collapsed; // Hide the loading overlay
             });
         }
     }

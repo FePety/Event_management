@@ -20,7 +20,10 @@ namespace Event_management
     /// </summary>
     sealed partial class App : Application
     {
+        // Private variable to hold the authentication service instance
         private IAuthService _authService;
+
+        // Static property to access the global loading overlay across the application
         public static LoadingOverlay GlobalLoader { get; private set; }
 
         /// <summary>
@@ -29,6 +32,7 @@ namespace Event_management
         /// </summary>
         public App()
         {
+            // Set the application window to launch in full-screen mode
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
 
             this.InitializeComponent();
@@ -49,16 +53,24 @@ namespace Event_management
                 rootFrame = new Frame();
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
+                // Create a new Grid layout to hold the Frame and LoadingOverlay
                 var mainGrid = new Grid();
+
+                // Initialize the GlobalLoader (a loading overlay) and set it to be visible while loading
                 GlobalLoader = new LoadingOverlay { Visibility = Visibility.Visible };
 
+                // Add the Frame and the LoadingOverlay to the mainGrid
                 mainGrid.Children.Add(rootFrame);
                 mainGrid.Children.Add(GlobalLoader);
 
+                // Set the current window's content to the mainGrid and activate the window to display it
                 Window.Current.Content = mainGrid;
                 Window.Current.Activate();
 
+                // Initialize the authentication service (using a mock service here)
                 _authService = new MockAuthService();
+
+                // Check the login status asynchronously and navigate accordingly
                 await CheckLoginStatusAsync(rootFrame);
             }
 
@@ -72,21 +84,24 @@ namespace Event_management
             }
         }
 
+        // This method checks the login status asynchronously. If the user is logged in, it navigates to the EventView page.
+        // If the user is not logged in, it navigates to the LoginView page. Once the navigation is complete, it hides the global loader.
         private async Task CheckLoginStatusAsync(Frame rootFrame)
         {
-            // Ellenőrizzük, hogy a felhasználó be van-e jelentkezve
             bool isLoggedIn = await _authService.IsUserLoggedInAsync();
 
-            // Ha be van jelentkezve, irányítsuk a főoldalra, egyébként pedig a bejelentkezési oldalra
             if (isLoggedIn)
             {
-                rootFrame.Navigate(typeof(EventView)); // Bejelentkezett felhasználó, tehát a főoldalra navigálunk
+                // Navigate to EventView if user is logged in
+                rootFrame.Navigate(typeof(EventView));
             }
             else
             {
-                rootFrame.Navigate(typeof(LoginView)); // Nincs bejelentkezve, tehát a Login oldalra navigálunk
+                // Navigate to LoginView if user is not logged in
+                rootFrame.Navigate(typeof(LoginView));
             }
-            GlobalLoader.Visibility = Visibility.Collapsed; // Rejtse el az animációt
+            // Hide the global loader after navigation
+            GlobalLoader.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>

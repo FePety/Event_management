@@ -26,8 +26,10 @@
         <panel:EventPanel x:Name="EventPanel" Grid.Row="1" />
 
         <Grid Grid.Row="2">
+            <!-- Binds the list of events to the GridView -->
+            <!-- Binds the selected event to the ViewModel -->
             <GridView x:Name="EventGridView"
-                  ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
+                  ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}" 
                   SelectedItem="{Binding SelectedEvent, Mode=TwoWay}"
                   SelectionChanged="EventGridView_SelectionChanged"
                   ScrollViewer.VerticalScrollMode="Auto"
@@ -64,6 +66,7 @@
                                             <SymbolIcon Symbol="Delete" Foreground="White"/>
                                         </Viewbox>
                                     </Button>
+                                    <!-- Binding the 'Name' property to the TextBlock, Mode: OneWay (only updates from the data source affect the TextBlock) -->
                                     <TextBlock Text="{Binding Name, Mode=OneWay}"
                                            TextWrapping="Wrap"
                                            Margin="10"
