@@ -22,9 +22,12 @@ namespace Event_management.Modules.Authentication.ViewModels
             
             ViewModel = new LoginViewModel(new MockAuthService());
             DataContext = ViewModel;
+
+            // Subscribe to the LoginSuccessful event to handle successful logins.
             ViewModel.LoginSuccessful += ViewModel_LoginSuccessful;
         }
 
+        // Moves focus to the password input field when the Enter key is pressed in the email field.
         private void Email_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
@@ -33,6 +36,7 @@ namespace Event_management.Modules.Authentication.ViewModels
             }
         }
 
+        // Executes the SignIn command when the Enter key is pressed in the password field.
         private void Password_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
@@ -41,6 +45,7 @@ namespace Event_management.Modules.Authentication.ViewModels
             }
         }
 
+        // Navigates to the EventView page when the login is successful.
         private void ViewModel_LoginSuccessful(object sender, EventArgs e)
         {
             Frame.Navigate(typeof(EventView));

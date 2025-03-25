@@ -5,7 +5,9 @@
     xmlns:local="using:Event_management"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     RequestedTheme="Dark">
+    <!-- Defining resources for the entire application -->
     <Application.Resources>
+        <!-- This provides access to built-in styles and resources for standard controls like Button, TextBox, etc. -->
         <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
     </Application.Resources>
 </Application>
