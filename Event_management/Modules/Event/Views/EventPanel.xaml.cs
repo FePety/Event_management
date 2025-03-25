@@ -1,4 +1,5 @@
-﻿using Event_management.Modules.Event.ViewModels;
+﻿using Event_management.Core.Services;
+using Event_management.Modules.Event.ViewModels;
 using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -12,7 +13,7 @@ namespace Event_management.Modules.Event.Views
         public static readonly DependencyProperty EventProperty =
             DependencyProperty.Register("Event", typeof(Core.Models.Event), typeof(EventPanel), new PropertyMetadata(null));
 
-        public EventPanelViewModel ViewModel { get; } = new EventPanelViewModel();
+        public EventPanelViewModel ViewModel { get; } = new EventPanelViewModel(new MockEventService());
 
         public EventPanel()
         {
@@ -20,20 +21,13 @@ namespace Event_management.Modules.Event.Views
             Trace.WriteLine(this.DataContext);
         }
 
-        public Core.Models.Event Event
+        private void UserControl_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
-            get { return (Core.Models.Event)GetValue(EventProperty); }
-            set { SetValue(EventProperty, value); }
-        }
-
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-
+            Core.Models.Event Event = sender.DataContext as Core.Models.Event;
+            if (Event != null && ViewModel != null)
+            {
+                ViewModel.OriginalEvent = Event;
+            }
         }
     }
 }

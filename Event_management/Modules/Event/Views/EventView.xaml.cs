@@ -1,4 +1,5 @@
-﻿using Event_management.Modules.Event.ViewModels;
+﻿using Event_management.Core.Services;
+using Event_management.Modules.Event.ViewModels;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -57,6 +58,29 @@ namespace Event_management.Modules.Event.Views
                 if (editButton != null) editButton.Opacity = 0;
                 if (deleteButton != null) deleteButton.Opacity = 0;
             }
+        }
+
+        private void EditingEvent_Click(object sender, RoutedEventArgs e)
+        {
+            Core.Models.Event editingEvent = (sender as Button).DataContext as Core.Models.Event;
+            if (editingEvent == null) return;
+            EventPanel.DataContext = editingEvent;
+            EventGridView.SelectedItem = editingEvent;
+            EventPanel.ViewModel.IsTextBoxEnabled = true;
+            EventPanel.ViewModel.IsNewEvent = false;
+        }
+
+        public Core.Models.Event original;
+
+        private void EventGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            EventPanel.DataContext = (sender as GridView).SelectedItem;
+            EventPanel.ViewModel.IsNewEvent = false;
+        }
+
+        private void NewEventButton_Click(object sender, RoutedEventArgs e)
+        {
+            EventPanel.ViewModel.ResetEventForm();
         }
     }
 }

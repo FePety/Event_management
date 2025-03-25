@@ -1,4 +1,5 @@
-﻿using Event_management.Core.Models;
+﻿using Event_management.Core.Contracts;
+using Event_management.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,31 +7,12 @@ using System.Threading.Tasks;
 
 namespace Event_management.Core.Services
 {
-    public class MockEventService
+    public class MockEventService : IEventService
     {
         private List<Event> _events = new List<Event>
         {
             new Event { Name = "Startup Conference", Location = "San Francisco", Country = "USA", Capacity = 300 },
             new Event { Name = "Gaming Expo", Location = "Tokyo", Country = "Japan", Capacity = 10000 },
-            new Event { Name = "Art & Design Fair", Location = "Paris", Country = "France", Capacity = 500 },
-            new Event { Name = "AI & Machine Learning Summit", Location = "London", Country = "UK", Capacity = 2000 },
-            new Event { Name = "Film Festival", Location = "Cannes", Country = "France", Capacity = 800 },
-            new Event { Name = "Blockchain Meetup", Location = "Zurich", Country = "Switzerland", Capacity = 150 },
-            new Event { Name = "Health & Wellness Expo", Location = "Sydney", Country = "Australia", Capacity = 1200 },
-            new Event { Name = "Startup Conference", Location = "San Francisco", Country = "USA", Capacity = 300 },
-            new Event { Name = "Gaming Expo", Location = "Tokyo", Country = "Japan", Capacity = 10000 },
-            new Event { Name = "Art & Design Fair", Location = "Paris", Country = "France", Capacity = 500 },
-            new Event { Name = "AI & Machine Learning Summit", Location = "London", Country = "UK", Capacity = 2000 },
-            new Event { Name = "Film Festival", Location = "Cannes", Country = "France", Capacity = 800 },
-            new Event { Name = "Blockchain Meetup", Location = "Zurich", Country = "Switzerland", Capacity = 150 },
-            new Event { Name = "Health & Wellness Expo", Location = "Sydney", Country = "Australia", Capacity = 1200 },
-            new Event { Name = "Startup Conference", Location = "San Francisco", Country = "USA", Capacity = 300 },
-            new Event { Name = "Gaming Expo", Location = "Tokyo", Country = "Japan", Capacity = 10000 },
-            new Event { Name = "Art & Design Fair", Location = "Paris", Country = "France", Capacity = 500 },
-            new Event { Name = "AI & Machine Learning Summit", Location = "London", Country = "UK", Capacity = 2000 },
-            new Event { Name = "Film Festival", Location = "Cannes", Country = "France", Capacity = 800 },
-            new Event { Name = "Blockchain Meetup", Location = "Zurich", Country = "Switzerland", Capacity = 150 },
-            new Event { Name = "Health & Wellness Expo", Location = "Sydney", Country = "Australia", Capacity = 1200 },
         };
 
         public async Task<ApiResponse<List<Event>>> GetEventsAsync()
@@ -55,12 +37,19 @@ namespace Event_management.Core.Services
             return response;
         }
 
-        public async Task<BaseResponse> UpdateEventAsync(string eventName, Event updatedEvent)
+        public async Task<BaseResponse> UpdateEventAsync(Event originalEvent, Event updatedEvent)
         {
             await Task.Delay(300);
-            var response = new BaseResponse();
 
-            var existingEvent = _events.FirstOrDefault(e => e.Name == eventName);
+            var response = new ApiResponse<Event>(null);
+
+            var existingEvent = originalEvent == null
+                ? null : _events.FirstOrDefault(e =>
+                    e.Name == originalEvent.Name &&
+                    e.Location == originalEvent.Location &&
+                    e.Country == originalEvent.Country &&
+                    e.Capacity == originalEvent.Capacity);
+
             if (existingEvent == null)
             {
                 response.AddError("EVENT_NOT_FOUND", "Event not found!", "Check the event name.");
@@ -72,7 +61,9 @@ namespace Event_management.Core.Services
             existingEvent.Country = updatedEvent.Country;
             existingEvent.Capacity = updatedEvent.Capacity;
 
-            response.AddInfo("EVENT_UPDATED", "Event successfully updated!", $"Event: { updatedEvent.Name}");
+            response.Data = existingEvent;
+            response.AddInfo("EVENT_UPDATED", "Event successfully updated!", $"Event: {updatedEvent.Name}");
+
             return response;
         }
 
