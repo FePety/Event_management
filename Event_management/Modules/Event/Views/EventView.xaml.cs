@@ -62,13 +62,25 @@ namespace Event_management.Modules.Event.Views
 
         private void EditingEvent_Click(object sender, RoutedEventArgs e)
         {
-            EventPanel.DataContext = (sender as Button).DataContext;
+            Core.Models.Event editingEvent = (sender as Button).DataContext as Core.Models.Event;
+            if (editingEvent == null) return;
+            EventPanel.DataContext = editingEvent;
+            EventGridView.SelectedItem = editingEvent;
             EventPanel.ViewModel.IsTextBoxEnabled = true;
+            EventPanel.ViewModel.IsNewEvent = false;
         }
+
+        public Core.Models.Event original;
 
         private void EventGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             EventPanel.DataContext = (sender as GridView).SelectedItem;
+            EventPanel.ViewModel.IsNewEvent = false;
+        }
+
+        private void NewEventButton_Click(object sender, RoutedEventArgs e)
+        {
+            EventPanel.ViewModel.ResetEventForm();
         }
     }
 }

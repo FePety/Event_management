@@ -27,7 +27,7 @@
 
         <Grid Grid.Row="2">
             <GridView x:Name="EventGridView"
-                  ItemsSource="{x:Bind ViewModel.Events}"
+                  ItemsSource="{x:Bind ViewModel.Events, Mode=OneWay}"
                   SelectedItem="{Binding SelectedEvent, Mode=TwoWay}"
                   SelectionChanged="EventGridView_SelectionChanged"
                   ScrollViewer.VerticalScrollMode="Auto"
@@ -64,7 +64,7 @@
                                             <SymbolIcon Symbol="Delete" Foreground="White"/>
                                         </Viewbox>
                                     </Button>
-                                    <TextBlock Text="{Binding Name}"
+                                    <TextBlock Text="{Binding Name, Mode=OneWay}"
                                            TextWrapping="Wrap"
                                            Margin="10"
                                            RelativePanel.AlignHorizontalCenterWithPanel="True"
@@ -78,7 +78,7 @@
                 </GridView.ItemTemplate>
             </GridView>
 
-            <Button x:Name="NewEventButton"
+            <Button x:Name="NewEventButton" Click="NewEventButton_Click"
                 Width="100" Height="100" Background="Green" CornerRadius="10" Margin="10"
                 HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Viewbox MaxHeight="40" MaxWidth="40">

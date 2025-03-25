@@ -26,7 +26,7 @@ namespace Event_management.Modules.Event.Views
             Core.Models.Event Event = sender.DataContext as Core.Models.Event;
             if (Event != null && ViewModel != null)
             {
-                ViewModel.SelectedEvent = Event;
+                ViewModel.OriginalEvent = Event;
             }
         }
     }
