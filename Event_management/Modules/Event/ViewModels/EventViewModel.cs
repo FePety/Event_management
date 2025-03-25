@@ -10,7 +10,7 @@ namespace Event_management.Modules.Event.ViewModels
     public class EventViewModel : INotifyPropertyChanged
     {
         // Mock service to handle event-related operations
-        private readonly MockEventService _eventService = new MockEventService();
+        private readonly MockEventService _eventService = MockEventService.Instance;
 
         // Access the Events collection with change notification
         private ObservableCollection<Core.Models.Event> _events;

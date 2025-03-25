@@ -19,7 +19,7 @@ namespace Event_management.Modules.Event.Views
     /// </summary>
     public sealed partial class EventView : Page
     {
-        private readonly MockEventService _eventService = new MockEventService();
+        private readonly MockEventService _eventService = MockEventService.Instance;
 
 
         // The EventViewModel is initialized and assigned to the DataContext of the EventView.
