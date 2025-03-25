@@ -727,8 +727,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
-        
+
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.Resources>

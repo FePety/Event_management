@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:model="using:Event_management.Core.Models"
     mc:Ignorable="d"
-    Background="#d6d6d6"
+    Background="#a3a3a3"
     >
 
     <Grid Padding="20">
@@ -45,7 +45,7 @@
                 <GridView.ItemTemplate>
                     <DataTemplate>
                         <Grid Width="200" Height="200" Padding="10,5,10,10">
-                            <Border x:Name="EventBorder" BorderThickness="2" Background="#a8a8a8" CornerRadius="8" HorizontalAlignment="Stretch"
+                            <Border x:Name="EventBorder" BorderThickness="2" Background="#b8b6b6" CornerRadius="8" HorizontalAlignment="Stretch"
                                     PointerEntered="EventBorder_PointerEntered" PointerExited="EventBorder_PointerExited" VerticalAlignment="Stretch">
                                 <Border.BorderBrush>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -69,7 +69,7 @@
                                     <!-- Binding the 'Name' property to the TextBlock, Mode: OneWay (only updates from the data source affect the TextBlock) -->
                                     <TextBlock Text="{Binding Name, Mode=OneWay}"
                                            TextWrapping="Wrap"
-                                           Margin="10"
+                                           Margin="10" Foreground="#383838"
                                            RelativePanel.AlignHorizontalCenterWithPanel="True"
                                            RelativePanel.AlignVerticalCenterWithPanel="True"
                                            TextAlignment="Center"
