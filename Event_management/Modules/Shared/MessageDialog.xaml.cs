@@ -38,6 +38,7 @@ namespace Event_management.Modules.Shared
             {
                 case "Sign Out":
                     await _mockAuthService.LogoutAsync();
+                    App.GlobalLoader.SetTimer(1000);
                     var rootFrame = new Frame();
                     rootFrame.Navigate(typeof(LoginView));
                     Window.Current.Content = rootFrame;

@@ -106,6 +106,7 @@ namespace Event_management.Modules.Event.Views
                 {
                     if (eventToRemove != null)
                     {
+                        App.GlobalLoader.SetTimer(2000);
                         ViewModel.Events.Remove(eventToRemove);
                     }
                 }
