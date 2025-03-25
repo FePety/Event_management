@@ -10,7 +10,7 @@ namespace Event_management.Modules.Event.Views
     public sealed partial class EventPanel : UserControl
     {
         // Initializes the ViewModel with a new instance of Event Panel ViewModel, using MockEventService for testing.
-        public EventPanelViewModel ViewModel { get; } = new EventPanelViewModel(new MockEventService());
+        public EventPanelViewModel ViewModel { get; } = new EventPanelViewModel(MockEventService.Instance);
 
         public EventPanel()
         {

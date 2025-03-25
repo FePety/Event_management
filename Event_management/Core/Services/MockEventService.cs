@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Documents;
 
 namespace Event_management.Core.Services
 {
@@ -11,15 +12,39 @@ namespace Event_management.Core.Services
     {
         // A mock list of events to simulate database or API data
         private List<Event> _events = new List<Event>
-        {
-            new Event { Name = "Startup Conference", Location = "San Francisco", Country = "USA", Capacity = 300 },
-            new Event { Name = "Gaming Expo", Location = "Tokyo", Country = "Japan", Capacity = 10000 },
-        };
+    {
+        new Event { Name = "Startup Conference", Location = "San Francisco", Country = "USA", Capacity = 300 },
+        new Event { Name = "Gaming Expo", Location = "Tokyo", Country = "Japan", Capacity = 10000 },
+    };
 
         public async Task<ApiResponse<List<Event>>> GetEventsAsync()
         {
             // Return the list of mock events wrapped in an API response
             return new ApiResponse<List<Event>>(_events);
+        }
+        // Private static instance of the class
+        private static MockEventService _instance;
+
+        // Private static lock object for thread safety
+        private static readonly object _lock = new object();
+        // Private constructor to prevent instantiation
+        private MockEventService() { }
+
+        // Public method to access the Singleton instance
+        public static MockEventService Instance
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    // If no instance exists, create one
+                    if (_instance == null)
+                    {
+                        _instance = new MockEventService();
+                    }
+                    return _instance;
+                }
+            }
         }
 
         public async Task<BaseResponse> AddEventAsync(Event newEvent)
