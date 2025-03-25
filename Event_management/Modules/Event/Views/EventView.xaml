@@ -19,7 +19,7 @@
 
         <RelativePanel Grid.Row="0">
             <TextBlock Text="Events" FontSize="24" FontWeight="Bold" RelativePanel.AlignVerticalCenterWithPanel="True" Foreground="#3d3d3d"/>
-            <Button x:Name="SignOutButton" Content="Sign Out" Background="Red" 
+            <Button x:Name="SignOutButton" Content="Sign Out" Background="Red" Click="SignOutButton_Click"
                     RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"/>
         </RelativePanel>
 
@@ -59,7 +59,7 @@
                                         </Viewbox>
                                     </Button>
                                     <Button x:Name="RemoveEvent" Width="40" Height="40" Background="Red" Margin="5" Opacity="0"
-                                             RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+                                             RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True" Click="RemoveEvent_Click">
                                         <Viewbox MaxHeight="40" MaxWidth="40" >
                                             <SymbolIcon Symbol="Delete" Foreground="White"/>
                                         </Viewbox>

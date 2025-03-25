@@ -10,6 +10,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI;
 using CommunityToolkit.Mvvm.Messaging;
 using Event_management.Modules.Event.Messages;
+using Event_management.Modules.Shared;
+using Windows.UI.Xaml.Controls;
 
 namespace Event_management.Modules.Event.ViewModels
 {
@@ -306,7 +308,7 @@ namespace Event_management.Modules.Event.ViewModels
             }
             else
             {
-                await UpdateEventAsync();
+                 await UpdateEventAsync();
             }
         }
         
